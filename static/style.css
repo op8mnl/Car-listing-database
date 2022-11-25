@@ -1,0 +1,51 @@
+body{
+    background-color: #280c74;
+    color: rgb(228, 228, 228);
+    font-family: verdana;
+}
+.content{
+    order:2;
+    height: 40vh;
+    width: 100vw;
+}
+.root{
+    display:flex;
+    height: 100vh;
+    width: 100vw;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+}
+.header{
+    order: 1;
+    height:10vh;
+    width: 100vw;
+
+}
+.table{
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+
+table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mask-custom {
+  background: rgba(24, 24, 16, .2);
+  border-radius: 2em;
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+.mask{
+    order:2;
+}
+h1{
+    line-height: 1.8;
+    margin-left:3vh;
+}

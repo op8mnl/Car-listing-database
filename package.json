@@ -1,0 +1,27 @@
+{
+  "type": "module",
+  "name": "3309-assign4",
+  "version": "1.0.0",
+  "description": "Assignment 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/op8mnl/3309-Assign4.git"
+  },
+  "author": "Felix Zheng, Angel Reyes, Emen Deng, Kerem Hatiboglu, Derin Yilmaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/op8mnl/3309-Assign4/issues"
+  },
+  "homepage": "https://github.com/op8mnl/3309-Assign4#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "express": "^4.18.2",
+    "jquery": "^3.6.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20"
+  }
+}
