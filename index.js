@@ -86,13 +86,13 @@ router.route('/dealership/:CompanyName')
   })
 router.route('/salesrep/:raise/:phonenumber')
   .post((req, res) => {
-    connection.query(`UPDATE salesrep SET Salary = (SELECT Salary FROM SalesRep WHERE phonenumber = "${req.params.phonenumber}") * 1.${req.params.raise} / 100`, (err, rows, fields) => {
+    connection.query(`UPDATE salesrep SET salary = salary * ${1+(req.params.raise/100)} WHERE phonenumber = ${req.params.phonenumber}`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
     })
   })
 
-
+//
 
 
 
