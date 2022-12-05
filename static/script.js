@@ -1,38 +1,24 @@
-function createVINS() {
-
-const para = document.createElement("div");
-
-const newContent = document.createTextNode("abcdefg ");
-
-const currentDiv = document.getElementById("vins");
-
-para.appendChild(newContent);
-
-currentDiv.appendChild(para);
+async function getAllVINS() {
+    document.getElementById("username").innerText = ""
+    document.getElementById("username").innerText = document.getElementById("usernameInput").value
+    const query = await fetch(`/users/${document.getElementById("usernameInput").value}`)
+    const data = await query.json()
+    const ul = document.getElementById("vins")
+    ul.innerHTML="";
+    data.map(data=>{
+        const wrapper = document.createElement("div");
+        wrapper.appendChild(document.createTextNode(data.VIN))
+        ul.appendChild(wrapper)
+    })
 }
 
-function showSellRequest() {
-
-    const para1 = document.createElement("div");
-    const para2 = document.createElement("div");
-    const para3 = document.createElement("div");
-    
-    const newContent1 = document.createTextNode("abcdefg ");
-    const newContent2 = document.createTextNode("abcdefg ");
-    const newContent3 = document.createTextNode("abcdefg ");
-    
-    const currentDiv1 = document.getElementById("sellrqst");
-    const currentDiv2 = document.getElementById("sellrqst");
-    const currentDiv3 = document.getElementById("sellrqst");
-    
-    para1.appendChild(newContent1);
-    para2.appendChild(newContent2);
-    para3.appendChild(newContent3);
-    
-    currentDiv1.appendChild(para1);
-    currentDiv2.appendChild(para2);
-    currentDiv3.appendChild(para3);
-    }
-
+async function getSellRequest() {
+    const query = await fetch(`/users/${document.getElementById("username").value}`)
+    const data = await query.json()
+    const p1 = document.getElementById("sellRequest")
+    const p2 = document.getElementById("duration")
+    p1.innerText = data[0].AskingPrice
+    p2.innerText = data[0].RequestDuration
+}
 
 
