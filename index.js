@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
   user: `${usr}`,
   password: `${pswd}`,
   database: `${db}`
-})
+});
 
 connection.connect(function (err) {
   if (err) { throw err }
@@ -55,7 +55,7 @@ router.route('/users')
       res.send(rows);
     })
 
-  })
+  });
 
 router.route('/users/:username')
   .get((req, res) => {
@@ -64,7 +64,7 @@ router.route('/users/:username')
       res.send(rows);
     })
 
-  })
+  });
 
 router.route('/sellrequest/:username/:VIN')
   .post((req, res) => {
@@ -73,9 +73,24 @@ router.route('/sellrequest/:username/:VIN')
       res.status(200).send("updated scccesfully");
     })
 
-  })
-//
+  });
 
+//given dealership find salesrep with highest hours worked
+//give raise to them (10%)
+router.route('/dealership/:CompanyName')
+  .get((req, res) => {
+    connection.query(`SELECT MAX(Hours), Salary, PhoneNumber FROM (SELECT * FROM (SELECT Email, CompanyName FROM (SELECT * FROM dealership NATURAL JOIN adminaccount ) AS Company) AS hello NATURAL JOIN salesrep AS Contact WHERE CompanyName = "${req.params.CompanyName}") AS high`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
+router.route('/salesrep/:raise/:phonenumber')
+  .post((req, res) => {
+    connection.query(`UPDATE salesrep SET Salary = (SELECT Salary FROM SalesRep WHERE phonenumber = "${req.params.phonenumber}") * 1.${req.params.raise} / 100`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
 
 
 
