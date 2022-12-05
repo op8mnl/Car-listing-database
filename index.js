@@ -1,29 +1,29 @@
 import express from 'express';
 const app = express();
 const router = express.Router();
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 //Assigning Constants
 const port = process.env.PORT || 3000; 
-// const host = 'localhost';
-// const usr = '';
-// const pswd = '';
-// const db = '';
+const host = 'localhost';
+const usr = 'root';
+const pswd = 'Password';
+// const db = 'sys';
 
-// app.use(express.json());
+app.use(express.json());
 
-// //connect to mysql db
-// const connection = mysql.createConnection({
-//   host: `${host}`,
-//   user: `${usr}`,
-//   password: `${pswd}`,
-//   database: `${db}`
-// })
+//connect to mysql db
+const connection = mysql.createConnection({
+  host: `${host}`,
+  user: `${usr}`,
+  password: `${pswd}`,
+  // database: `${db}`
+})
 
-// connection.connect(function(err){
-//     if(err) {throw err}
-//     else {console.log("Connected to MySQL DB")}
-// });
+connection.connect(function(err){
+    if(err) {throw err}
+    else {console.log("Connected to MySQL DB")}
+});
 
 
 /** Connection example:
