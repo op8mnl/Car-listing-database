@@ -16,11 +16,14 @@
       <p>Removing the transaction from the list using Transaction ID</p>
       <div class="functionalities">
         <a>See all the transactions: </a>
-        <button type="submit">Click here to see all the Transactions</button>
+        <button type="submit" onclick="getAllTransactions()">Click here to see all the Transactions</button>
+        <div id="transaction-list">
+            <ul id="transactions"></ul>
+        </div>
         <a>Choose the Transaction:</a>
-        <input type="text" placeholder="Transaction ID"></input>
-        
-        <button>Enter</button>
+        <input type="text" placeholder="Transaction ID" id="delete-transaction"></input>
+        <button onclick="deleteTransaction()">Enter</button>
+        <span id="deleted"></span>
       </div>
       <div class="backButton">
         <button onclick="document.location='index.html'">BACK</button>

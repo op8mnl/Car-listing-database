@@ -16,21 +16,22 @@
       <p class="description">Determine the admin who has the least number of sales reps and add one</p>
       <div class="functionalities">
         <a>Find the Admin with the least sales reps!</a>
-        <button type="submit">Click to Find</button>
+        <button type="submit" onclick="findAdmin()">Click to Find</button>
+        <div id="admin"></div>
         <a>Add Sales Rep:</a>
         <a>Name</a>
-        <input type="text" placeholder="Name"></input>
+        <input type="text" placeholder="Name" id="name"></input>
         <a>Phone Number</a>
-        <input type="text" placeholder="Phone Number"></input>
+        <input type="text" placeholder="Phone Number" id="pn"></input>
         <a>Age</a>
-        <input type="text" placeholder="Age"></input>
+        <input type="text" placeholder="Age" id="a"></input>
         <a>Gender</a>
-        <input type="text" placeholder="Gender"></input>
+        <input type="text" placeholder="Gender" id="g"></input>
         <a>Salary</a>
-        <input type="text" placeholder="Salary"></input>
+        <input type="text" placeholder="Salary" id="s"></input>
         <a>Hours</a>
-        <input type="text" placeholder="Hours"></input>
-        <button>Enter</button>
+        <input type="text" placeholder="Hours" id="h"></input>
+        <button onclick = "addSalesRep()">Enter</button>
       </div>
       <div class="backButton">
         <button onclick="document.location='index.html'">BACK</button>

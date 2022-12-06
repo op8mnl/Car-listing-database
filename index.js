@@ -2,6 +2,7 @@ import express from 'express';
 const app = express();
 const router = express.Router();
 import mysql from 'mysql';
+import fetch from 'node-fetch'
 
 //Assigning Constants
 const port = process.env.PORT || 3000;
@@ -66,15 +67,17 @@ router.route('/users/:username')
 
   });
 
-router.route('/sellrequest/:username/:VIN')
-  .get((req, res) => {
+router.route('/requests/:username/:VIN')
+  .post((req, res) => {
+    console.log(JSON.stringify(req.body.ap))
     connection.query(`INSERT INTO sellrequest VALUES("${req.params.VIN}","${req.params.username}",${req.body.ap},${req.body.dur})`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
     })
   })
+  router.route('/sellrequest/:username/:VIN')
   .post((req, res) => {
-    connection.query(`UPDATE sellrequest SET AskingPrice = ${req.body.askingprice}, RequestDuration = ${req.body.duration} WHERE VIN = "${req.params.VIN}" AND username = "${req.params.username} "`, (err, rows, fields) => {
+    connection.query(`UPDATE sellrequest SET AskingPrice = ${req.body.askingprice}, RequestDuration = ${req.body.duration} WHERE VIN = "${req.params.VIN}" AND username = "${req.params.username}"`, (err, rows, fields) => {
       if (err) throw err;
       res.status(200).send("updated scccesfully");
     })
@@ -100,13 +103,22 @@ router.route('/salesrep/:raise/:phonenumber')
 
 //search buyers younger than 20, edit age
 //get all transaction numbers of these buyers
-router.route('/useraccount')
-  .get((req, res) => {
-    connection.query(`SELECT Email, MIN(SalesReps) FROM (SELECT Email, COUNT(Username) AS SalesReps FROM (SELECT * FROM SalesRep NATURAL JOIN AdminAccount) AS Emails GROUP BY Username HAVING COUNT(Username) > 1) AS reps`, (err, rows, fields) => {
+router.route('/minAdmin')
+  .get(async(req, res) => {
+    connection.query(`(SELECT MIN(numreps) AS smallest FROM (SELECT COUNT(Username) AS numreps, Username FROM SalesRep NATURAL JOIN AdminAccount AS Emails GROUP BY Username HAVING COUNT(Username) > 1) AS mins)`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
-    })
   })
+})
+router.route('/useraccount/:min')
+  .get(async(req,res)=>{
+    connection.query(`SELECT * FROM (SELECT Email, COUNT(Username) AS numreps, Username FROM SalesRep NATURAL JOIN AdminAccount AS Emails GROUP BY Username HAVING COUNT(Username) > 1) AS dups WHERE numreps = ${req.params.min}`, (err, rows, fields) => {
+      if(err)throw err;
+      res.send(rows)
+    })
+})
+    
+
 router.route('/salesrep')
   .post((req, res) => {
     connection.query(`INSERT INTO SalesRep VALUES ("${req.body.pn}", "${req.body.name}", ${req.body.age}, "${req.body.gender}", ${req.body.salary}, ${req.body.hours}, "${req.body.email}")`, (err, rows, fields) => {
@@ -116,7 +128,7 @@ router.route('/salesrep')
   })
 
 //delete transaction number from id
-router.route('/transaction/')
+router.route('/transaction')
   .get((req, res) => {
     connection.query(`SELECT * FROM transactioninfo`, (err, rows, fields) => {
       if (err) throw err;
@@ -125,7 +137,8 @@ router.route('/transaction/')
   })
 
 router.route('/transaction/:id')
-  .delete((req, res) => {
+  .delete(async (req, res) => {
+    
     connection.query(`DELETE FROM transactioninfo WHERE TransactionNum = ${req.params.id}`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
