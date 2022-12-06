@@ -1,15 +1,18 @@
 async function getAllVINS() {
-    document.getElementById("username").innerText = ""
-    document.getElementById("username").innerText = document.getElementById("usernameInput").value
-    const query = await fetch(`/api/users/${document.getElementById("usernameInput").value}`)
-    const data = await query.json()
-    const ul = document.getElementById("vins")
-    ul.innerHTML="";
-    data.map(data=>{
-        const wrapper = document.createElement("div");
-        wrapper.appendChild(document.createTextNode(data.VIN))
-        ul.appendChild(wrapper)
-    })
+  document.getElementById("username").innerText = "";
+  document.getElementById("username").innerText =
+    document.getElementById("usernameInput").value;
+  const query = await fetch(
+    `/api/users/${document.getElementById("usernameInput").value}`
+  );
+  const data = await query.json();
+  const ul = document.getElementById("vins");
+  ul.innerHTML = "";
+  data.map((data) => {
+    const wrapper = document.createElement("div");
+    wrapper.appendChild(document.createTextNode(data.VIN));
+    ul.appendChild(wrapper);
+  });
 }
 
 async function getSellRequest() {
@@ -53,5 +56,3 @@ async function getEmployee() {
     }
     alert (`Updated for ${data.length} employee(s).`)
 }
-
-

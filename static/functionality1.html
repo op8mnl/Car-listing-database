@@ -7,31 +7,29 @@
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="style1.css" />
     <title>Document</title>
-</head>
-<body>
-    <div class = 'root'>
-        <div class = "title">
-          <h1>EDIT SELL REQUEST</h1>
+  </head>
+  <body>
+    <div class="root">
+      <div class="title">
+        <h1>EDIT SELL REQUEST</h1>
+      </div>
+      <div class="functionalities">
+        <a>Enter username: </a>
+        <input type="text" />
+        <button onclick="createVINS()">Enter</button>
+        <a> VIN: </a>
+        <div id="vin-box">
+          <ul id="vins"></ul>
         </div>
-        <div class="functionalities">
-          <a>Enter username: </a>
-          <input type="text" id = "usernameInput">
-          <button onclick="getAllVINS()"> Enter </button>
-          <div id = "username"></div>
-          <a> VIN: </a>
-            <div id="vin-box">
-                <ul id="vins"></ul>
-            </div>
-          <a>Enter VIN for Sell Request</a>
-          <input type="text" id = "vinInput">
-          <button> Enter </button>
-            <div id = "sell-box">
-                <ul id ="sells"></ul>
-            </div>
-          <a >Sell Price:</a>
-          <input type="text" id = "newsell">
-          <a >Duration:</a>
-          <input type="text" id= "newdur">
+        <a>Enter VIN for Sell Request</a>
+        <input type="text" />
+        <button onclick="showSellRequest()">Enter</button>
+        <ul id="sellrqst"></ul>
+
+        <a>Sell Price:</a>
+        <input type="text" placeholder="Sell Price" />
+        <a>Duration:</a>
+        <input type="text" placeholder="Duration" />
 
         <button>Enter</button>
       </div>
