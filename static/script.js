@@ -1,7 +1,6 @@
 async function getAllVINS() {
   document.getElementById("username").innerText = "";
-  document.getElementById("username").innerText =
-    document.getElementById("usernameInput").value;
+  document.getElementById("username").innerText = document.getElementById("usernameInput").value
   const query = await fetch(
     `/api/users/${document.getElementById("usernameInput").value}`
   );
@@ -16,19 +15,19 @@ async function getAllVINS() {
 }
 
 async function getSellRequest() {
-    const query = await fetch(`/api/users/${document.getElementById("usernameInput").innerText}`)
+    const query = await fetch(`/api/users/${document.getElementById("username").innerText}`)
     const data = await query.json()
-    const p1 = document.getElementById("sellRequest")
-    const p2 = document.getElementById("duration")
+    const p1 = document.getElementById("sellrqst")
     p1.innerHTML = ""
-    p2.innerHTML = ""
     data.map(data=>{
-        const wrapper = document.createElement("div");
-        wrapper.appendChild(document.createTextNode("Current Asking Price: " + data.AskingPrice))
-        const wrapper2 = document.createElement("div");
-        wrapper.appendChild(document.createTextNode("Current Asking Price: " + data.RequestDuration))
-        p1.appendChild(wrapper)
-        p2.appendChild(wrapper2)
+        if (data.VIN == document.getElementById("vinInput").value){
+          const wrapper = document.createElement("div");
+          wrapper.appendChild(document.createTextNode("Current Asking Price: " + data.AskingPrice +" "))
+          const wrapper2 = document.createElement("div");
+          wrapper.appendChild(document.createTextNode("Current Duration: " + data.RequestDuration + " days"))
+          p1.appendChild(wrapper)
+          p1.appendChild(wrapper2)
+        }
     })
 
 }

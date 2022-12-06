@@ -15,15 +15,16 @@
       </div>
       <div class="functionalities">
         <a>Enter username: </a>
-        <input type="text" />
-        <button onclick="createVINS()">Enter</button>
+        <input type="text" id = "usernameInput"/>
+        <button onclick="getAllVINS()">Enter</button>
+        <div id = "username"></div>
         <a> VIN: </a>
         <div id="vin-box">
           <ul id="vins"></ul>
         </div>
         <a>Enter VIN for Sell Request</a>
-        <input type="text" />
-        <button onclick="showSellRequest()">Enter</button>
+        <input type="text" id = "vinInput"/>
+        <button onclick="getSellRequest()">Enter</button>
         <ul id="sellrqst"></ul>
 
         <a>Sell Price:</a>
