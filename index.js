@@ -68,7 +68,7 @@ router.route('/users/:username')
 
 router.route('/sellrequest/:username/:VIN')
   .get((req, res) => {
-    connection.query(`INSERT INTO sellrequest VALUES(${req.params.VIN},${req.params.username},${req.body.ap},${req.body.dur})`, (err, rows, fields) => {
+    connection.query(`INSERT INTO sellrequest VALUES("${req.params.VIN}","${req.params.username}",${req.body.ap},${req.body.dur})`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
     })
