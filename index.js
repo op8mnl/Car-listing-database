@@ -67,6 +67,12 @@ router.route('/users/:username')
   });
 
 router.route('/sellrequest/:username/:VIN')
+  .get((req, res) => {
+    connection.query(`INSERT INTO sellrequest VALUES(${req.params.VIN},${req.params.username},${req.body.ap},${req.body.dur})`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
   .post((req, res) => {
     connection.query(`UPDATE sellrequest SET AskingPrice = ${req.body.askingprice}, RequestDuration = ${req.body.duration} WHERE VIN = "${req.params.VIN}" AND username = "${req.params.username} "`, (err, rows, fields) => {
       if (err) throw err;
@@ -85,15 +91,55 @@ router.route('/dealership/:CompanyName')
     })
   })
 router.route('/salesrep/:raise/:phonenumber')
-  .post((req, res) => {
-    connection.query(`UPDATE salesrep SET Salary = (SELECT Salary FROM SalesRep WHERE phonenumber = "${req.params.phonenumber}") * 1.${req.params.raise} / 100`, (err, rows, fields) => {
+  .get((req, res) => {
+    connection.query(`UPDATE salesrep SET salary = salary * ${1 + (req.params.raise / 100)} WHERE phonenumber = ${req.params.phonenumber}`, (err, rows, fields) => {
       if (err) throw err;
       res.send(rows);
     })
   })
 
+//search buyers younger than 20, edit age
+//get all transaction numbers of these buyers
+router.route('/useraccount')
+  .get((req, res) => {
+    connection.query(`SELECT Email, MIN(SalesReps) FROM (SELECT Email, COUNT(Username) AS SalesReps FROM (SELECT * FROM SalesRep NATURAL JOIN AdminAccount) AS Emails GROUP BY Username HAVING COUNT(Username) > 1) AS reps`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
+router.route('/salesrep')
+  .post((req, res) => {
+    connection.query(`INSERT INTO SalesRep VALUES ("${req.body.pn}", "${req.body.name}", ${req.body.age}, "${req.body.gender}", ${req.body.salary}, ${req.body.hours}, "${req.body.email}")`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
 
+//delete transaction number from id
+router.route('/transaction/')
+  .get((req, res) => {
+    connection.query(`SELECT * FROM transactioninfo`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
 
+router.route('/transaction/:id')
+  .delete((req, res) => {
+    connection.query(`DELETE FROM transactioninfo WHERE TransactionNum = ${req.params.id}`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
+
+//add sell request
+router.route('/sellrequest')
+  .get((req, res) => {
+    connection.query(`SELECT * FROM sellrequest`, (err, rows, fields) => {
+      if (err) throw err;
+      res.send(rows);
+    })
+  })
 
 
 
